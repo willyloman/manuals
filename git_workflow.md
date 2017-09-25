@@ -26,6 +26,7 @@ Click on the ticket, and in the right bar, find the GitHub Power-Up button (if y
 Click "Attach Branch", and then navigate to the repo and branch you want to attach to the card.
 
 ![Trello Workflow](https://github.com/BerkeleyAutomation/manuals/raw/master/images/git_workflow/trello.png)
+
 ## Step 2: Do your work
 
 Make your changes on your feature branch, committing and pushing as necessary.
@@ -73,6 +74,7 @@ git rebase -i $(git merge-base my-feature-branch master)
 You should see a `vi` window that pops up that looks like this:
 
 ![Rebase Workflow](https://github.com/BerkeleyAutomation/manuals/raw/master/images/git_workflow/rebase.png)
+
 You can pick, reword, edit, or squash those commits by editing this file.
 Once you write the file, `git` will guide you through the process of making the changes you wanted.
 
