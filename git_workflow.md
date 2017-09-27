@@ -52,7 +52,7 @@ git checkout master
 git pull
 git checkout my-feature-branch
 git rebase master
-git push --force
+git push # --force
 ```
 
 ## Step 3: Revise your commit history
@@ -78,10 +78,10 @@ You should see a `vi` window that pops up that looks like this:
 You can pick, reword, edit, or squash those commits by editing this file.
 Once you write the file, `git` will guide you through the process of making the changes you wanted.
 
-Once you've rebased or reset and changed all your commits, you have to force-push onto your branch:
+Once you've rebased or reset and changed all your commits, you have to force-push onto your branch. Before passing the `--force` flag, ensure that you are not force-pushing changes to `master` or any branch with many collaborators:
 
 ```
-git push --force
+git push # --force
 ```
 
 ### Option 2: Resetting
@@ -96,10 +96,10 @@ git reset $(git merge-base my-feature-branch master)
 Then, add changes and commit them as you see fit.
 If you want to split changes in one file into multiple commits, just add the parts you want to each commit using `git add -p`.
 
-Once you've rebased or reset and changed all your commits, you have to force-push onto your branch:
+Once you've rebased or reset and changed all your commits, you have to force-push onto your branch, again taking caution when passing the `--force` flag:
 
 ```
-git push --force
+git push # --force
 ```
 
 ## Step 4: Create a pull request on Github
@@ -119,7 +119,7 @@ git checkout master
 git pull
 git checkout my-feature-branch
 git rebase master
-git push --force
+git push # --force
 git checkout master
 git merge my-feature-branch
 git push
