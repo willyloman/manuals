@@ -132,7 +132,7 @@ This will merge your branch into master cleanly, with no merge commit.
 Once everything is merged into master, delete your feature branch to keep the repo clean:
 
 ```bash
-git psh origin --delete my-feature-branch
+git push origin --delete my-feature-branch
 git branch -D my-feature-branch
 ```
 
