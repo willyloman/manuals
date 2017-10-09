@@ -77,6 +77,7 @@ I’ve installed a few of these packages in the global system’s Python site pa
 Here’s a list of these packages – note that they’re subject to change in the future
 
 * Tensorflow 1.1.0rc2 – This is hand-compiled and optimized for this machine. I’d use it if you can – if you need an older version of Tensorflow, pip install it in your virtual environment.
+* OpenCV 3.3 – This is hand-compiled and optimized for this machine. It also includes all of OpenCV's video processing capabilities. If you need a different version of OpenCV, just pip install it in your virtualenv.
 * Ray 0.0.1 - An early version of a useful parallelization package from the RISE lab. Use as needed.
 
 ## Large Datasets
