@@ -84,4 +84,37 @@ Here’s a list of these packages – note that they’re subject to change in t
 Since the machine only has two 1TB SSD’s, you should try to keep large datasets off of the machine except when you’re using them.
 If you have a dataset larger than 100GB, please place it in `/mnt/data`, a 700GB partition exclusively allocated to data.
 
+## Using Tensorflow
+By default, Tensorflow expands to fill all available GPUs on our machine.
+When you queue up a model to train, please limit each Tensorflow process to a single GPU by setting
+the `CUDA_VISIBLE_DEVICES` environment variable to either 0, 1, or 2 depending on which GPU is available.
+To check which device is available, run the command `nvidia-smi`:
+
+```shell
+$ nvidia-smi
+Tue Oct 17 10:37:23 2017
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 375.88                 Driver Version: 375.88                    |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  TITAN X (Pascal)    Off  | 0000:01:00.0     Off |                  N/A |
+| 23%   34C    P8    16W / 250W |  12090MiB / 12189MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+|   1  TITAN X (Pascal)    Off  | 0000:02:00.0     Off |                  N/A |
+| 24%   43C    P8    17W / 250W |    306MiB / 12189MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+|   2  TITAN X (Pascal)    Off  | 0000:03:00.0      On |                  N/A |
+| 23%   38C    P8    15W / 250W |   1508MiB / 12186MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+```
+
+The GPU entry in each output block indicates an ID number (0, 1, or 2) and the Memory Usage block indicates how heavily the GPU is being used.
+Choose the GPU that has the least usage for training your model. If they're all near capacity, wait for the other jobs to finish before starting up yours.
+
+For example, given the above output, we would run
+```shell
+CUDA_VISIBLE_DEVICES=1 python train_my_model.py
+```
 
