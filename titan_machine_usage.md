@@ -118,3 +118,11 @@ For example, given the above output, we would run
 CUDA_VISIBLE_DEVICES=1 python train_my_model.py
 ```
 
+If your job does not require an entire GPU, you can change the TensorFlow session config so that TF will only allocate memory as needed. This is very helpful as it allows running multiple TF sessions on the same GPU:
+```python
+tf_config = tf.ConfigProt() # fill in w/ custom config 
+tf_config.gpu_options.allow_growth = True
+sess = tf.Session(config=tf_config)
+```
+See more details [here](https://www.tensorflow.org/tutorials/using_gpu#allowing_gpu_memory_growth).
+
