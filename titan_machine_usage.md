@@ -77,7 +77,9 @@ I’ve installed a few of these packages in the global system’s Python site pa
 Here’s a list of these packages – note that they’re subject to change in the future
 
 * Tensorflow 1.4.0 – This is hand-compiled and optimized for this machine. I’d use it if you can – if you need an older version of Tensorflow, pip install it in your virtual environment.
+  * Note -- this is installed for both Python 2.7 and Python 3.5.
 * OpenCV 3.3 – This is hand-compiled and optimized for this machine. It also includes all of OpenCV's video processing capabilities. If you need a different version of OpenCV, just pip install it in your virtualenv.
+  * Note -- this is currently only installed for Python 2.7. If you need it for 3.5, just pip install it.
 * Ray 0.0.1 - An early version of a useful parallelization package from the RISE lab. Use as needed.
 
 ## Large Datasets
@@ -87,36 +89,40 @@ If you have a dataset larger than 100GB, please place it in `/mnt/data`, a 700GB
 ## Using Tensorflow
 By default, Tensorflow expands to fill all available GPUs on our machine.
 When you queue up a model to train, please limit each Tensorflow process to a single GPU by setting
-the `CUDA_VISIBLE_DEVICES` environment variable to either 0, 1, or 2 depending on which GPU is available.
+the `CUDA_VISIBLE_DEVICES` environment variable to either 0, 1, 2, or 3 depending on which GPU is available.
 To check which device is available, run the command `nvidia-smi`:
 
 ```shell
 $ nvidia-smi
-Tue Oct 17 10:37:23 2017
 +-----------------------------------------------------------------------------+
-| NVIDIA-SMI 375.88                 Driver Version: 375.88                    |
+| NVIDIA-SMI 384.90                 Driver Version: 384.90                    |
 |-------------------------------+----------------------+----------------------+
 | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
 | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
 |===============================+======================+======================|
-|   0  TITAN X (Pascal)    Off  | 0000:01:00.0     Off |                  N/A |
-| 23%   34C    P8    16W / 250W |  12090MiB / 12189MiB |      0%      Default |
+|   0  TITAN X (Pascal)    Off  | 00000000:01:00.0 Off |                  N/A |
+| 23%   29C    P8     9W / 250W |      2MiB / 12189MiB |      0%      Default |
 +-------------------------------+----------------------+----------------------+
-|   1  TITAN X (Pascal)    Off  | 0000:02:00.0     Off |                  N/A |
-| 24%   43C    P8    17W / 250W |    306MiB / 12189MiB |      0%      Default |
+|   1  TITAN Xp            Off  | 00000000:02:00.0 Off |                  N/A |
+| 23%   36C    P8     9W / 250W |      2MiB / 12189MiB |      0%      Default |
 +-------------------------------+----------------------+----------------------+
-|   2  TITAN X (Pascal)    Off  | 0000:03:00.0      On |                  N/A |
-| 23%   38C    P8    15W / 250W |   1508MiB / 12186MiB |      0%      Default |
+|   2  TITAN X (Pascal)    Off  | 00000000:03:00.0 Off |                  N/A |
+| 23%   37C    P8     8W / 250W |      2MiB / 12189MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+|   3  TITAN X (Pascal)    Off  | 00000000:04:00.0  On |                  N/A |
+| 23%   40C    P8    12W / 250W |    465MiB / 12186MiB |      1%      Default |
 +-------------------------------+----------------------+----------------------+
 ```
 
-The GPU entry in each output block indicates an ID number (0, 1, or 2) and the Memory Usage block indicates how heavily the GPU is being used.
+The GPU entry in each output block indicates an ID number (0, 1, 2, or 3) and the Memory Usage block indicates how heavily the GPU is being used.
 Choose the GPU that has the least usage for training your model. If they're all near capacity, wait for the other jobs to finish before starting up yours.
 
 For example, given the above output, we would run
 ```shell
 CUDA_VISIBLE_DEVICES=1 python train_my_model.py
 ```
+
+Note that device 1 is a TITAN Xp, which is a bit faster than the Titan X (Pascal) GPUs. Use device 3 last, as it is running the displays and will therefore have slightly less memory.
 
 If your job does not require an entire GPU, you can change the TensorFlow session config so that TF will only allocate memory as needed. This is very helpful as it allows running multiple TF sessions on the same GPU:
 ```python
