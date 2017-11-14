@@ -15,15 +15,17 @@ We’ll get back to you once your account has been created. If you need sudo acc
 
 ## Logging In
 
-Once you receive an email confirming that your account has been created, simply log in via SSH like this:
+Once you receive an email confirming that your account has been created, you may access either of the GPU servers via SSH:
 
 ```shell
+# Triton I
 ssh -AXY username@128.32.192.73 -p 8028
 ```
 
 Accessing Triton II is just as easy:
 
 ```shell
+# Triton II
 ssh -AXY username@128.32.192.73 -p 8031
 ```
 
