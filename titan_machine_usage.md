@@ -6,19 +6,23 @@ Please read this guide in full before logging onto the machine.
 
 ## Setting up a User Account
 
-Email <mmatl@berkeley.edu> with the subject line “Triton Access” and the following three bits of information:
+Email <mmatl@berkeley.edu> and <bderose@berkeley.edu> with the subject line “Triton Access” and the following three bits of information:
 * Your full name.
 * Your Berkeley email.
 * Your desired username (this will be the name of your home directory).
 
-I’ll get back to you once your account has been created. If you need sudo access, indicate that and tell me why.
+We’ll get back to you once your account has been created. If you need sudo access, indicate that and describe why.
 
 ## Logging In
 
-Once you receive an email confirming that your account has been created, simply log in via SSH like this:
+Once you receive an email confirming that your account has been created, you may access either of the GPU servers via SSH:
 
 ```shell
+# Triton I
 ssh -AXY username@128.32.192.73 -p 8028
+
+# Triton II
+ssh -AXY username@128.32.192.73 -p 8031
 ```
 
 Your initial password will be ‘autolab’ -- change it as soon as you log in with the `passwd` command.
