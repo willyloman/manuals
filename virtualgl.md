@@ -78,3 +78,18 @@ vglrun glxgears
 
 This should pop a window containing rotating 3D gears on your local machine.
 
+## Drawbacks and Alternatives
+
+One major drawback of this setup is that the client must remain connected via SSH for the server's application to continue to run -- disconnecting can cause the application to crash.
+This isn't really a problem when using live visualization, but it can be annoying for long-term offscreen rendering.
+
+As an alternative to using VirtualGL, a hack is to hijack the server's local X screen.
+This won't send any OpenGL output back to the client and is therefore unsuitable for visualization, but it allows offscreen rendering to be done in `screen`, even when the session disconnects.
+In order to do this, simply run the following commands:
+```
+export DISPLAY=:0.0
+sudo xhost + local:
+```
+
+Then, run whatever application you want normally (i.e. no `vglrun`). You won't be able to see the output of the application, but that's fine for offscreen rendering.
+
